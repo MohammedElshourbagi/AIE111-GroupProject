@@ -1,13 +1,11 @@
 import os
-import ImageProcessing as IP
-import PathFindingAlgorithms as PF
+import ImageProcessing as ip
+import PathFindingAlgorithms as pf
 
 
 def main():
-    # path = IP.GetPathOfImage()
-    PIXELS = IP.TranslateImageTo2DArray(r"C:\Users\user\OneDrive\Desktop\debug.jpg")
-    # returns a 2d numpy array
-    print(PIXELS)
+    PIXELS = ip.TranslateImageTo2DArray(r"")
+    print(PIXELS)  # returns a 2d numpy array
 
 
 if __name__ == "__main__":
