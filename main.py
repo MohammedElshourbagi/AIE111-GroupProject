@@ -1,10 +1,9 @@
-import os
-import ImageProcessing as ip
-import PathFindingAlgorithms as pf
+import ImageProcessing as IP
+import PathFindingAlgorithms as PF
 
 
 def main():
-    PIXELS = ip.TranslateImageTo2DArray(r"")
+    PIXELS = IP.TranslateImageTo2DArray(r"floorplan.jpg")
     print(PIXELS)  # returns a 2d numpy array
 
 
