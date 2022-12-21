@@ -8,7 +8,7 @@ def TranslateImageTo2DArray(path):
     (thresh, black_white) = cv2.threshold(original, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
     half_sized = cv2.resize(black_white, (0, 0), fx=0.5, fy=0.5)
 
-    plt.imshow(original, cmap='binary_r')
-    plt.show()
+    # plt.imshow(half_sized, cmap='binary_r')
+    # plt.show()
 
     return asarray(half_sized)
