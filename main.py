@@ -8,6 +8,9 @@ def CheckInputExists(dic, key):
     if key in dic:
         return True
     return False
+def ConsoleDivider(char, n=120):
+    for i in range(n):
+        print(char, end='')
 
 
 Floors = {"B": "Basement",
@@ -252,23 +255,37 @@ FloorConnections = []
 
 def main():
     # Initialize Directional Graph
-    FineArts_Graph = nx.MultiDiGraph()
+    FineArts_Graph = nx.MultiGraph()
     FineArts_Graph.add_weighted_edges_from(F1_Nodes)
 
     # DEBUGGING: Draws a Graph
+    '''
     nx.draw_planar(FineArts_Graph, with_labels=True, font_weight='bold')
     plt.show()
+    '''
 
-    SourceNode = input("Where are you currently at = ")
+    ConsoleDivider("\u2550")
+    SourceNode = input("\n Where are you currently at? = ")
     while not CheckInputExists(FineArts_Rooms, SourceNode):
-        SourceNode = input("Entry not found, Try Again = ")
+        SourceNode = input("\t Entry not found, Try Again = ")
 
-    TargetNode = input("Where do you wanna go = ")
+    TargetNode = input("\n Where do you wanna go? = ")
     while not CheckInputExists(FineArts_Rooms, TargetNode):
-        TargetNode = input("Entry not found, Try Again = ")
+        TargetNode = input("\t Entry not found, Try Again = ")
+    ConsoleDivider("\u2500")
 
-    # Entrance, F109
-    path = nx.shortest_path(FineArts_Graph, SourceNode, TargetNode)
+    if SourceNode == TargetNode:
+        print("\n You're already there!")
+        ConsoleDivider("\u2550")
+        return
+
+    ShortestPath = nx.shortest_path(FineArts_Graph, SourceNode, TargetNode)
+    print("\n  1 . Starting from the " + FineArts_Rooms[ShortestPath[0]])
+    for i in range(1, len(ShortestPath)-1):
+        print(" ", i+1, ".")
+    print(" ", len(ShortestPath), ". Finally reaching the " + FineArts_Rooms[ShortestPath[-1]])
+
+    ConsoleDivider("\u2550")
 
 
 if __name__ == "__main__":
