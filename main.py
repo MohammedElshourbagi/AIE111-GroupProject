@@ -1,9 +1,9 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 
+
 def ReturnAddress(key):
     return key + " is at the " + Floors[key[1]] + " of the " + Buildings[key[0]] + " Building"
-# Gathering & Validating User Input
 def CheckInputExists(dic, key):
     if key in dic:
         return True
@@ -20,7 +20,8 @@ Floors = {"B": "Basement",
 Buildings = {"F": "Fine Arts"
              }
 
-F1_Data = {"F108": "Lab",
+F1_Data = {"Entrance": "Entrance",
+           "F108": "Lab",
            "F106": "Room",
            "F102": "Class",
            "F103": "Class",
@@ -183,9 +184,10 @@ F3_Data = {
     "F384": "Sec Head",
     "F386": "Sec Head"
 }
-FineArtsRooms = F1_Data | F2_Data | F3_Data
+FineArts_Rooms = F1_Data | F2_Data | F3_Data
 
 F1_Nodes = [
+    ("Entrance", "F1A", 0),
     ("F1A", "F1B", 1),
     ("F1A", "F1E", 1),
     ("F1A", "F1F", 1),
@@ -227,27 +229,31 @@ F1_Nodes = [
     ("F1K", "F149", 0.5),
     ("F1K", "F150", 0.5)
 ]
+F2_Nodes = []
+F3_Nodes = []
+FloorConnections = []
 
 
 def main():
     # Initialize Directional Graph
-    F1_Graph = nx.MultiDiGraph()
-
-    # List of all Rooms & Hallways
-    F1_Graph.add_weighted_edges_from(F1_Nodes)
+    FineArts_Graph = nx.Graph()
+    FineArts_Graph.add_weighted_edges_from(F1_Nodes)
 
     # DEBUGGING: Draws a Graph
-    nx.draw_planar(F1_Graph, with_labels=True, font_weight='bold')
+    nx.draw_planar(FineArts_Graph, with_labels=True, font_weight='bold')
     plt.show()
+
     SourceNode = input("Where are you currently at = ")
-    while not CheckInputExists(FineArtsRooms, SourceNode):
+    while not CheckInputExists(FineArts_Rooms, SourceNode):
         SourceNode = input("Entry not found, Try Again = ")
 
     TargetNode = input("Where do you wanna go = ")
-    while not CheckInputExists(FineArtsRooms, TargetNode):
+    while not CheckInputExists(FineArts_Rooms, TargetNode):
         TargetNode = input("Entry not found, Try Again = ")
 
-    print(nx.astar_path(F1_Graph, SourceNode, TargetNode))
+    # Entrance, F109
+    paths = nx.shortest_path(FineArts_Graph)
+    print(paths[SourceNode][TargetNode])
 
 
 if __name__ == "__main__":
