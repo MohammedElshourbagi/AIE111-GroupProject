@@ -227,7 +227,23 @@ F1_Nodes = [
     ("F1K", "F141", 0.5),
     ("F1K", "F148", 0.5),
     ("F1K", "F149", 0.5),
-    ("F1K", "F150", 0.5)
+    ("F1K", "F150", 0.5),
+
+    # Floor Connections
+    ("F1D", "F12A", 1),
+    ("F12A", "F2D", 1),
+    ("F2D", "F23A", 1),
+    ("F23A", "F3D", 1),
+    ("F3D", "F32A", 1),
+    ("F32A", "F2D", 1),
+    ("F2D", "F21A", 1),
+    ("F21A", "F1D", 1),
+
+    ("F1D", "F13A", 2),
+    ("F13A", "F3D", 2),
+    ("F3D", "F31A", 2),
+    ("F31A", "F1D", 2),
+
 ]
 F2_Nodes = []
 F3_Nodes = []
@@ -236,7 +252,7 @@ FloorConnections = []
 
 def main():
     # Initialize Directional Graph
-    FineArts_Graph = nx.Graph()
+    FineArts_Graph = nx.MultiDiGraph()
     FineArts_Graph.add_weighted_edges_from(F1_Nodes)
 
     # DEBUGGING: Draws a Graph
@@ -252,8 +268,7 @@ def main():
         TargetNode = input("Entry not found, Try Again = ")
 
     # Entrance, F109
-    paths = nx.shortest_path(FineArts_Graph)
-    print(paths[SourceNode][TargetNode])
+    path = nx.shortest_path(FineArts_Graph, SourceNode, TargetNode)
 
 
 if __name__ == "__main__":
